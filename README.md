@@ -1,28 +1,28 @@
-# Pago vía Pix
+# Medios de pago RecargaJuegos
 
-Página web simple y responsiva para mostrar un pago vía Pix con QR, datos del beneficiario y botón para copiar la llave CPF.
+Pagina web estatica para compartir con clientes y mostrar todos los medios de pago disponibles en un solo enlace.
 
-## Archivos
+## Metodos incluidos
 
-- `index.html`: página completa con HTML, CSS y JavaScript embebidos.
-- No requiere dependencias, instalación ni archivos externos adicionales.
+- Transferencia Bancaria: EKO FAMILIAR, alias celular `0975 287 669`, titular Alberto Maurício Rios.
+- Mango: numero `0975 287 669`, concepto RecargaJuegos.
+- Giros Tigo: telefono `0983 912 488`, CI `5.006.026`.
+- Giros Personal: telefono `0975 287 669`.
+- Pix Brasil: llave CPF `03195790181`, banco PicPay, beneficiario Magno Alberto Rios, ciudad São Paulo - SP.
+- Binance Pay: email `recargaj369@gmail.com`.
 
-## Datos mostrados
+## Como funciona GitHub Pages
 
-- Beneficiario: Magno Alberto Rios
-- Tipo de llave: CPF
-- Llave Pix: `03195790181`
-- Banco: PicPay
-- Ciudad: São Paulo - SP
+GitHub Pages publica archivos estaticos desde un repositorio de GitHub. En este proyecto la pagina se sirve desde la rama `main`, carpeta raiz (`/root`). El archivo principal es `index.html`, por eso el sitio abre directamente al entrar al enlace publico.
 
-## Publicar en GitHub Pages
+## Como usar la pagina
 
-1. Crea un repositorio público en GitHub, por ejemplo desde `https://github.com/new`.
-2. Sube `index.html` y este `README.md` al repositorio.
-3. Entra en `Settings > Pages`.
-4. En `Build and deployment`, selecciona la rama principal (`main`) y la carpeta raíz (`/root`).
-5. Guarda los cambios. GitHub generará un enlace público para compartir con clientes.
+1. Abre el enlace publico de GitHub Pages.
+2. Elige el metodo de pago que prefieras.
+3. Presiona el boton de copiar de la tarjeta correspondiente.
+4. Pega el numero, email o llave Pix en la app de pago.
+5. Confirma los datos antes de enviar.
 
-## Uso del botón
+## Enlace publico
 
-El botón **Copiar código** copia automáticamente la llave Pix `03195790181` al portapapeles y muestra un mensaje de confirmación para evitar errores al copiar manualmente.
+https://alberto513.github.io/pix-pagamento-magno/
