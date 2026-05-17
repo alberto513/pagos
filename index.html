@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Página de pago vía Pix con QR y botón para copiar llave CPF." />
+  <title>Pago vía Pix</title>
+  <style>
+    :root {
+      --bg-start: #e9f8f2;
+      --bg-end: #f6faf8;
+      --surface: #ffffff;
+      --ink: #13221b;
+      --muted: #61746c;
+      --green: #168b62;
+      --green-dark: #0f6c4c;
+      --green-soft: #e8f7f1;
+      --line: #d8ebe3;
+      --shadow: 0 24px 70px rgba(15, 37, 28, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(22, 139, 98, 0.18), transparent 34%),
+        linear-gradient(135deg, var(--bg-start), var(--bg-end));
+    }
+
+    main {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .pix-card {
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid rgba(22, 139, 98, 0.18);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 28px 24px 22px;
+      text-align: center;
+      color: #ffffff;
+      background: linear-gradient(145deg, #0d1815, #153329);
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: 36px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .hero-subtitle {
+      margin: 10px 0 0;
+      color: #55d8a4;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    .qr-panel {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .qr-image {
+      width: min(270px, 100%);
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      display: block;
+      padding: 12px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(15, 37, 28, 0.1);
+    }
+
+    .payment-details {
+      display: grid;
+      gap: 10px;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 124px 1fr;
+      gap: 12px;
+      align-items: center;
+      min-height: 48px;
+      padding: 11px 13px;
+      background: #fbfefd;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .detail-label {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .detail-value {
+      min-width: 0;
+      font-size: 16px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .copy-area {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .pix-key {
+      width: 100%;
+      min-width: 0;
+      height: 46px;
+      padding: 0 13px;
+      color: #11251b;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: var(--green-soft);
+      border: 1px solid #add9c8;
+      border-radius: 12px;
+      outline: none;
+    }
+
+    .copy-icon-button,
+    .copy-code-button {
+      border: 0;
+      color: #ffffff;
+      background: var(--green);
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .copy-icon-button {
+      width: 46px;
+      height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 18px;
+    }
+
+    .copy-code-button {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 18px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      box-shadow: 0 13px 24px rgba(22, 139, 98, 0.25);
+    }
+
+    .copy-icon-button:hover,
+    .copy-code-button:hover {
+      background: var(--green-dark);
+    }
+
+    .copy-icon-button:active,
+    .copy-code-button:active {
+      transform: translateY(1px);
+    }
+
+    .copy-message {
+      min-height: 22px;
+      margin: 12px 0 0;
+      color: var(--green-dark);
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    .copy-message.is-visible {
+      opacity: 1;
+    }
+
+    .publish-note {
+      margin: 18px 0 0;
+      padding: 13px 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      background: #f7fbf9;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .publish-note strong {
+      color: var(--green-dark);
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 14px;
+      }
+
+      .hero {
+        padding: 24px 18px 19px;
+      }
+
+      .hero-title {
+        font-size: 32px;
+      }
+
+      .card-body {
+        padding: 18px;
+      }
+
+      .detail-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .copy-area {
+        grid-template-columns: 1fr 44px;
+      }
+
+      .pix-key {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="pix-card" aria-label="Pago vía Pix">
+      <header class="hero">
+        <h1 class="hero-title">PIX</h1>
+        <p class="hero-subtitle">Pagamento via Pix</p>
+      </header>
+
+      <div class="card-body">
+        <div class="qr-panel">
+          <img
+            class="qr-image"
+            src="https://i.imgur.com/459400.jpg"
+            alt="QR para pago vía Pix"
+          />
+        </div>
+
+        <div class="payment-details">
+          <div class="detail-row">
+            <span class="detail-label">Beneficiario</span>
+            <span class="detail-value">Magno Alberto Rios</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Tipo de llave</span>
+            <span class="detail-value">CPF</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Llave Pix</span>
+            <div class="copy-area">
+              <input
+                id="pixKey"
+                class="pix-key"
+                type="text"
+                value="03195790181"
+                readonly
+                aria-label="Llave Pix CPF"
+              />
+              <button class="copy-icon-button" type="button" onclick="copyPixKey()" aria-label="Copiar llave Pix">
+                &#128203;
+              </button>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Banco</span>
+            <span class="detail-value">Banco do Brasil (001)</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Ciudad</span>
+            <span class="detail-value">São Paulo - SP</span>
+          </div>
+        </div>
+
+        <button class="copy-code-button" type="button" onclick="copyPixKey()">
+          Copiar código
+        </button>
+        <p id="copyMessage" class="copy-message" role="status" aria-live="polite"></p>
+
+        <p class="publish-note">
+          <strong>GitHub Pages:</strong> sube este archivo a un repositorio público y activa Pages desde
+          Settings &gt; Pages. El botón <strong>Copiar código</strong> permite copiar la llave Pix sin errores.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    async function copyPixKey() {
+      const input = document.getElementById("pixKey");
+      const message = document.getElementById("copyMessage");
+      const pixKey = input.value;
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(pixKey);
+        } else {
+          input.focus();
+          input.select();
+          document.execCommand("copy");
+          input.setSelectionRange(0, 0);
+        }
+
+        message.textContent = "Código Pix copiado al portapapeles.";
+      } catch (error) {
+        message.textContent = "No fue posible copiar automáticamente. Selecciona la llave y cópiala manualmente.";
+      }
+
+      message.classList.add("is-visible");
+      window.clearTimeout(copyPixKey.timeoutId);
+      copyPixKey.timeoutId = window.setTimeout(function () {
+        message.classList.remove("is-visible");
+      }, 2800);
+    }
+  </script>
+</body>
+</html>
