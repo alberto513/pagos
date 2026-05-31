@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medios de Pago – Alfredo López</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --text: #172033;
+      --muted: #667085;
+      --panel: rgba(255, 255, 255, 0.86);
+      --panel-strong: #ffffff;
+      --line: rgba(23, 32, 51, 0.11);
+      --shadow: 0 18px 45px rgba(31, 42, 68, 0.14);
+      --radius: 8px;
+      --copy-bg: #172033;
+      --copy-fg: #ffffff;
+      --success: #047857;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(255, 126, 89, 0.22), transparent 34rem),
+        radial-gradient(circle at 88% 14%, rgba(64, 150, 255, 0.20), transparent 30rem),
+        linear-gradient(135deg, #fff7ed 0%, #eef7ff 47%, #f3f0ff 100%);
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      letter-spacing: 0;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      content: "";
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.32) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.32) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.52), transparent 76%);
+    }
+
+    .page {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 36px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 22px;
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.68);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.58);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      padding: 7px 10px;
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      color: #344054;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      max-width: 880px;
+      margin: 0;
+      font-size: clamp(32px, 5.4vw, 58px);
+      line-height: 1.02;
+      font-weight: 850;
+      letter-spacing: 0;
+      overflow-wrap: break-word;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      color: #475467;
+      font-size: clamp(16px, 2.3vw, 20px);
+      line-height: 1.55;
+      font-weight: 520;
+      overflow-wrap: break-word;
+    }
+
+    .quick-note {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      max-width: 820px;
+      margin: 0;
+      padding: 13px 14px;
+      border: 1px solid rgba(4, 120, 87, 0.17);
+      border-radius: 8px;
+      background: rgba(236, 253, 245, 0.82);
+      color: #065f46;
+      font-size: 15px;
+      font-weight: 650;
+      line-height: 1.45;
+      overflow-wrap: break-word;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .card {
+      --accent: #4f46e5;
+      --accent-2: #06b6d4;
+      --soft: rgba(79, 70, 229, 0.10);
+      grid-column: span 6;
+      position: relative;
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      gap: 16px;
+      overflow: hidden;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.82)),
+        linear-gradient(135deg, var(--soft), transparent 62%);
+      box-shadow: 0 16px 32px rgba(31, 42, 68, 0.11);
+    }
+
+    .card::before {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 5px;
+      content: "";
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+
+    .card.tigo {
+      --accent: #e11d48;
+      --accent-2: #f97316;
+      --soft: rgba(249, 115, 22, 0.12);
+    }
+
+    .card.personal {
+      --accent: #2563eb;
+      --accent-2: #06b6d4;
+      --soft: rgba(6, 182, 212, 0.12);
+    }
+
+    .card.itau {
+      --accent: #f97316;
+      --accent-2: #1d4ed8;
+      --soft: rgba(249, 115, 22, 0.13);
+    }
+
+    .card.ueno {
+      --accent: #7c3aed;
+      --accent-2: #0ea5e9;
+      --soft: rgba(124, 58, 237, 0.12);
+    }
+
+    .card.alias {
+      --accent: #059669;
+      --accent-2: #14b8a6;
+      --soft: rgba(20, 184, 166, 0.12);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .icon {
+      display: grid;
+      flex: 0 0 auto;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, white), color-mix(in srgb, var(--accent-2) 18%, white));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      font-size: 24px;
+    }
+
+    .card-title {
+      min-width: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0;
+      overflow-wrap: break-word;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: fit-content;
+      margin-top: 7px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 11%, white);
+      color: color-mix(in srgb, var(--accent) 70%, #172033);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .details {
+      display: grid;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .row.static {
+      grid-template-columns: 1fr;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+      text-transform: uppercase;
+    }
+
+    .value {
+      display: block;
+      overflow-wrap: break-word;
+      color: var(--text);
+      font-size: 19px;
+      line-height: 1.22;
+      font-weight: 830;
+    }
+
+    .value.compact {
+      font-size: 17px;
+    }
+
+    .value.email {
+      font-size: 15px;
+      line-height: 1.28;
+    }
+
+    .row.email-row {
+      grid-template-columns: 1fr;
+    }
+
+    .row.email-row .copy-button {
+      width: 100%;
+    }
+
+    .copy-button {
+      display: inline-flex;
+      min-width: 94px;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: var(--copy-fg);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 10px 18px color-mix(in srgb, var(--accent) 22%, transparent);
+      transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+    }
+
+    .copy-button:hover,
+    .copy-button:focus-visible {
+      outline: none;
+      filter: saturate(1.08) brightness(1.03);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 22px color-mix(in srgb, var(--accent) 28%, transparent);
+    }
+
+    .copy-button:active {
+      transform: translateY(0);
+    }
+
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(37, 99, 235, 0.13);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 14px 28px rgba(31, 42, 68, 0.08);
+      color: #344054;
+      font-size: 16px;
+      font-weight: 750;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 10;
+      max-width: min(360px, calc(100% - 36px));
+      padding: 13px 15px;
+      border: 1px solid rgba(4, 120, 87, 0.18);
+      border-radius: 8px;
+      background: #ecfdf5;
+      color: var(--success);
+      box-shadow: 0 16px 34px rgba(15, 23, 42, 0.18);
+      font-size: 15px;
+      font-weight: 800;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 180ms ease, transform 180ms ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 980px) {
+      .card.featured {
+        grid-column: span 6;
+      }
+
+      .card.alias-card {
+        grid-column: span 4;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(calc(100% - 22px), 620px);
+        padding: 18px 0 26px;
+      }
+
+      .hero {
+        padding: 17px;
+      }
+
+      .grid {
+        gap: 12px;
+      }
+
+      .card {
+        grid-column: 1 / -1;
+        padding: 15px;
+      }
+
+      .card-header {
+        gap: 10px;
+      }
+
+      .icon {
+        width: 42px;
+        height: 42px;
+        font-size: 22px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+
+      .copy-button {
+        width: 100%;
+      }
+
+      .value {
+        font-size: 18px;
+      }
+
+      .footer {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">💳 Medios de pago disponibles</p>
+      <h1 id="page-title">MEDIOS DE PAGO – ALFREDO LÓPEZ</h1>
+      <p class="lead">Elegí el método de pago que más te convenga, copiá los datos y enviá el comprobante.</p>
+      <p class="quick-note">Los botones copian teléfonos, cuentas, CI y alias para evitar errores al transferir o girar.</p>
+    </section>
+
+    <section class="grid" aria-label="Lista de medios de pago">
+      <article class="card tigo featured">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">📲</span>
+          <div class="card-title">
+            <h2>GIROS TIGO</h2>
+            <span class="tag">Giro nacional</span>
+          </div>
+        </div>
+        <div class="details">
+          <div class="row">
+            <div>
+              <span class="label">Teléfono</span>
+              <span class="value">0982 121 653</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="0982121653" aria-label="Copiar teléfono de Giros Tigo">Copiar</button>
+          </div>
+          <div class="row">
+            <div>
+              <span class="label">CI</span>
+              <span class="value">4455099</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="4455099" aria-label="Copiar CI de Giros Tigo">Copiar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card personal featured">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">📱</span>
+          <div class="card-title">
+            <h2>BILLETERA PERSONAL</h2>
+            <span class="tag">Billetera móvil</span>
+          </div>
+        </div>
+        <div class="details">
+          <div class="row">
+            <div>
+              <span class="label">Teléfono</span>
+              <span class="value">0971 326 760</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="0971326760" aria-label="Copiar teléfono de Billetera Personal">Copiar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card itau featured">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">🏦</span>
+          <div class="card-title">
+            <h2>TRANSFERENCIA BANCARIA - BANCO ITAÚ</h2>
+            <span class="tag">Cuenta bancaria</span>
+          </div>
+        </div>
+        <div class="details">
+          <div class="row static">
+            <div>
+              <span class="label">Banco</span>
+              <span class="value compact">Itaú</span>
+            </div>
+          </div>
+          <div class="row static">
+            <div>
+              <span class="label">Titular</span>
+              <span class="value compact">Alfredo López</span>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <span class="label">Cuenta</span>
+              <span class="value">520410756</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="520410756" aria-label="Copiar cuenta de Banco Itaú">Copiar</button>
+          </div>
+          <div class="row">
+            <div>
+              <span class="label">CI</span>
+              <span class="value">4455099</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="4455099" aria-label="Copiar CI de Banco Itaú">Copiar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card ueno featured">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">💼</span>
+          <div class="card-title">
+            <h2>TRANSFERENCIA BANCARIA - BANCO UENO</h2>
+            <span class="tag">Cuenta bancaria</span>
+          </div>
+        </div>
+        <div class="details">
+          <div class="row static">
+            <div>
+              <span class="label">Banco</span>
+              <span class="value compact">Ueno</span>
+            </div>
+          </div>
+          <div class="row static">
+            <div>
+              <span class="label">Titular</span>
+              <span class="value compact">Alfredo López</span>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <span class="label">Cuenta</span>
+              <span class="value">20579787</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="20579787" aria-label="Copiar cuenta de Banco Ueno">Copiar</button>
+          </div>
+          <div class="row">
+            <div>
+              <span class="label">CI</span>
+              <span class="value">4455099</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="4455099" aria-label="Copiar CI de Banco Ueno">Copiar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card alias alias-card">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">🔑</span>
+          <div class="card-title">
+            <h2>ALIAS - FINLATINA</h2>
+            <span class="tag">Alias por CI</span>
+          </div>
+        </div>
+        <div class="details">
+          <div class="row static">
+            <div>
+              <span class="label">Tipo de alias</span>
+              <span class="value compact">CI</span>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <span class="label">Alias</span>
+              <span class="value">4455099</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="4455099" aria-label="Copiar alias de Finlatina">Copiar</button>
+          </div>
+          <div class="row static">
+            <div>
+              <span class="label">Entidad</span>
+              <span class="value compact">Finlatina</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card alias alias-card">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">🔷</span>
+          <div class="card-title">
+            <h2>ALIAS - UENO BANK</h2>
+            <span class="tag">Alias por teléfono</span>
+          </div>
+        </div>
+        <div class="details">
+          <div class="row static">
+            <div>
+              <span class="label">Tipo de alias</span>
+              <span class="value compact">Teléfono</span>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <span class="label">Alias</span>
+              <span class="value">0982121653</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="0982121653" aria-label="Copiar alias de Ueno Bank">Copiar</button>
+          </div>
+          <div class="row static">
+            <div>
+              <span class="label">Entidad</span>
+              <span class="value compact">Ueno Bank</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card alias alias-card">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">✉️</span>
+          <div class="card-title">
+            <h2>ALIAS - ITAÚ</h2>
+            <span class="tag">Alias por correo</span>
+          </div>
+        </div>
+        <div class="details">
+          <div class="row static">
+            <div>
+              <span class="label">Tipo de alias</span>
+              <span class="value compact">Correo</span>
+            </div>
+          </div>
+          <div class="row email-row">
+            <div>
+              <span class="label">Alias</span>
+              <span class="value email">alfredoivan7@gmail.com</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="alfredoivan7@gmail.com" aria-label="Copiar alias de Itaú">Copiar</button>
+          </div>
+          <div class="row static">
+            <div>
+              <span class="label">Entidad</span>
+              <span class="value compact">Itaú</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span aria-hidden="true">📩</span>
+      <span>Después de realizar el pago, enviá el comprobante por WhatsApp.</span>
+    </footer>
+  </main>
+
+  <div class="toast" role="status" aria-live="polite">Copiado correctamente</div>
+
+  <script>
+    const toast = document.querySelector(".toast");
+    let toastTimeout;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1700);
+    }
+
+    async function copyText(value) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        return;
+      }
+
+      const input = document.createElement("textarea");
+      input.value = value;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.left = "-9999px";
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      input.remove();
+    }
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        try {
+          await copyText(button.dataset.copy);
+          showToast("Copiado correctamente");
+        } catch (error) {
+          showToast("No se pudo copiar. Copiá el dato manualmente.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
