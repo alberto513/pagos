@@ -25,4 +25,4 @@ GitHub Pages publica archivos estaticos desde un repositorio de GitHub. En este 
 
 ## Enlace publico
 
-https://alberto513.github.io/pix-pagamento-magno/
+https://alberto513.github.io/pagos/
