@@ -4,7 +4,7 @@ Pagina web estatica para compartir con clientes y mostrar todos los medios de pa
 
 ## Metodos incluidos
 
-- Transferencia Bancaria: EKO FAMILIAR, alias celular `0975 287 669`, titular Alberto Maurício Rios.
+- Transferencia Bancaria Eko / Banco Familiar: titular `ALBERTO MAURICIO RIOS`, telefono `+595 975 287 669`, cedula `4004004`, cuenta Banco Familiar `81-342262`, cuenta otros bancos `81342262`.
 - Mango: numero `0975 287 669`, concepto RecargaJuegos.
 - Giros Tigo: telefono `0983 912 488`, CI `5.006.026`.
 - Giros Personal: telefono `0975 287 669`.

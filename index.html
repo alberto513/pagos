@@ -31,6 +31,7 @@
       min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--ink);
+      overflow-x: hidden;
       background:
         radial-gradient(circle at 20% 0%, rgba(25, 150, 107, 0.36), transparent 34%),
         radial-gradient(circle at 90% 12%, rgba(36, 107, 254, 0.18), transparent 28%),
@@ -50,6 +51,7 @@
       align-items: center;
       margin-bottom: 28px;
       color: #ffffff;
+      min-width: 0;
     }
 
     .eyebrow {
@@ -63,10 +65,11 @@
 
     h1 {
       margin: 0;
-      max-width: 680px;
+      max-width: 100%;
       font-size: clamp(34px, 5vw, 58px);
       line-height: 1.02;
       letter-spacing: 0;
+      overflow-wrap: break-word;
     }
 
     .hero-copy {
@@ -83,6 +86,7 @@
       border: 1px solid rgba(255, 255, 255, 0.13);
       border-radius: 20px;
       box-shadow: var(--shadow);
+      min-width: 0;
     }
 
     .summary-row {
@@ -108,6 +112,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
+      align-items: start;
     }
 
     .payment-card {
@@ -125,6 +130,11 @@
     .payment-card.featured {
       grid-row: span 2;
       background: linear-gradient(180deg, #ffffff 0%, #f7fbf9 100%);
+    }
+
+    .payment-card.bank-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f4fbf8 100%);
+      border-color: #9ed8c1;
     }
 
     .card-header {
@@ -201,9 +211,21 @@
 
     .copy-row {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       gap: 8px;
       align-items: center;
+    }
+
+    .bank-note {
+      margin: -4px 0 0;
+      padding: 11px 12px;
+      color: #315144;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+      background: #eef8f4;
+      border: 1px solid #c8e7da;
+      border-radius: 14px;
     }
 
     .copy-value {
@@ -227,12 +249,15 @@
     }
 
     .copy-button {
-      width: 44px;
+      width: auto;
+      min-width: 64px;
       height: 44px;
+      padding: 0 10px;
       display: grid;
       place-items: center;
       border-radius: 12px;
-      font-size: 17px;
+      font-size: 13px;
+      font-weight: 800;
     }
 
     .primary-copy {
@@ -313,7 +338,16 @@
 
     @media (max-width: 640px) {
       .page {
+        width: min(100%, 390px);
+        max-width: 390px;
+        margin-left: 0;
+        margin-right: 0;
         padding: 28px 12px 42px;
+      }
+
+      h1 {
+        font-size: clamp(30px, 9vw, 38px);
+        line-height: 1.08;
       }
 
       .methods-grid {
@@ -345,37 +379,60 @@
     <section class="hero" aria-label="Medios de pago disponibles">
       <div>
         <p class="eyebrow">Medios de pago disponibles</p>
-        <h1>Elige tu metodo de pago y copia los datos sin errores.</h1>
-        <p class="hero-copy">Usa la tarjeta del metodo que prefieras. Cada boton copia automaticamente el numero, email o llave Pix correspondiente al portapapeles.</p>
+        <h1>Medios de pago</h1>
+        <p class="hero-copy">Elegí el método que prefieras y copiá los datos sin errores. Cada botón copia automáticamente el número, cuenta, email o llave Pix correspondiente al portapapeles.</p>
       </div>
       <aside class="hero-summary" aria-label="Resumen de pago">
-        <div class="summary-row"><span>Beneficiario principal</span><strong>Alberto Maurício Rios</strong></div>
+        <div class="summary-row"><span>Beneficiario principal</span><strong>Alberto Mauricio Rios</strong></div>
+        <div class="summary-row"><span>Cuenta Eko</span><strong>Banco Familiar</strong></div>
         <div class="summary-row"><span>Pix Brasil</span><strong>Magno Alberto Rios</strong></div>
         <div class="summary-row"><span>Disponibilidad</span><strong>Transferencia, giros, Pix y Binance Pay</strong></div>
       </aside>
     </section>
 
     <section class="methods-grid">
-      <article class="payment-card">
+      <article class="payment-card bank-card">
         <div class="card-header">
           <div class="method-icon">B</div>
           <div>
             <h2 class="card-title">Transferencia Bancaria</h2>
-            <p class="card-subtitle">EKO FAMILIAR</p>
+            <p class="card-subtitle">Cuenta Eko / Banco Familiar</p>
           </div>
         </div>
+        <p class="bank-note">Para transferencias bancarias, usá el número de cuenta que corresponda según tu banco.</p>
         <div class="fields">
-          <div class="field"><label>Banco</label><strong>EKO FAMILIAR</strong></div>
-          <div class="field"><label>Titular</label><strong>Alberto Maurício Rios</strong></div>
+          <div class="field"><label>Titular</label><strong>ALBERTO MAURICIO RIOS</strong></div>
+          <div class="field"><label>Banco</label><strong>Familiar</strong></div>
           <div class="field">
-            <label>Alias celular</label>
+            <label>Teléfono Eko</label>
             <div class="copy-row">
-              <span class="copy-value">0975 287 669</span>
-              <button class="copy-button" type="button" data-copy="0975287669" data-label="Alias celular">Copiar</button>
+              <span class="copy-value">+595 975 287 669</span>
+              <button class="copy-button" type="button" data-copy="+595975287669" data-label="Teléfono Eko">Copiar</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Cédula</label>
+            <div class="copy-row">
+              <span class="copy-value">4004004</span>
+              <button class="copy-button" type="button" data-copy="4004004" data-label="Cédula">Copiar</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Cuenta desde Banco Familiar</label>
+            <div class="copy-row">
+              <span class="copy-value">81-342262</span>
+              <button class="copy-button" type="button" data-copy="81-342262" data-label="Cuenta Banco Familiar">Copiar</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Cuenta desde otros bancos</label>
+            <div class="copy-row">
+              <span class="copy-value">81342262</span>
+              <button class="copy-button" type="button" data-copy="81342262" data-label="Cuenta otros bancos">Copiar</button>
             </div>
           </div>
         </div>
-        <button class="primary-copy" type="button" data-copy="0975287669" data-label="Alias celular EKO">Copiar alias EKO</button>
+        <button class="primary-copy" type="button" data-copy="Titular: ALBERTO MAURICIO RIOS&#10;Banco: Familiar&#10;Telefono: +595975287669&#10;Cedula: 4004004&#10;Cuenta Banco Familiar: 81-342262&#10;Cuenta otros bancos: 81342262" data-label="Datos bancarios Eko">Copiar datos bancarios</button>
       </article>
 
       <article class="payment-card">
